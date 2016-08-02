@@ -6,5 +6,12 @@ RSpec.describe GramsController, type: :controller do
       get :index
       expect(response).to have_http_status(:success)
     end
+
+    describe "grams#new action" do
+      it "should successfullt show the new form" do
+        get :new
+        expect(response).to have_http_status(:success)
+      end
+    end
   end
 end
