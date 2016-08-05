@@ -2,9 +2,12 @@ require 'rails_helper'
 
 RSpec.describe GramsController, type: :controller do
   describe "grams#index action" do
-    it "should successfully show the page" do
-      get :index
-      expect(response).to have_http_status(:success)
+    it "should successfully show the page if the gram is found" do
+
+    end
+
+    it "should return a 404 error if the gram is not found"
+
     end
 
     describe "grams#new action" do
@@ -14,11 +17,7 @@ RSpec.describe GramsController, type: :controller do
       end
 
       it "should successfully show the new form" do
-        user = User.create(
-          email:                  'fakeuser@gmail.com',
-          password:               'secretPassword',
-          password_confirmation:  'secretPassword'
-        )
+        user = FactoryGirl.create(:user)
         sign_in user
 
         get :new
@@ -32,13 +31,9 @@ RSpec.describe GramsController, type: :controller do
         post :create, gram: { message: "Hello" }
         expect(response).to redirect_to new_user_session_path
       end
-      
+
       it "should successfully create a new gram in our database" do
-        user = User.create(
-          email:                  'fakeuser@gmail.com',
-          password:               'secretPassword',
-          password_confirmation:  'secretPassword'
-        )
+        user = FactoryGirl.create(:user)
         sign_in user
 
         post :create, gram: {message: 'Hello!'}
@@ -50,11 +45,7 @@ RSpec.describe GramsController, type: :controller do
       end
 
       it "should properly deal with validation errors" do
-        user = User.create(
-          email:                  'fakeuser@gmail.com',
-          password:               'secretPassword',
-          password_confirmation:  'secretPassword'
-        )
+        user = FactoryGirl.create(:user)
         sign_in user
 
         gram_count = Gram.count
